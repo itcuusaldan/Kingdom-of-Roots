@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, IDamagable
 {
     Rigidbody2D rb;
     public int health;
@@ -43,7 +43,11 @@ public class Enemy : MonoBehaviour
 
             for (int i = 0; i < playerToDamage.Length; i++)
             {
-                playerToDamage[i].GetComponent<PotatoHero>().TakeDamage(damage);
+                var damagable = playerToDamage[i].GetComponent<IDamagable>();
+                if (damagable != null)
+                {
+                    damagable.TakeDamage(damage);
+                }
             }
 
         }
